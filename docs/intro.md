@@ -2,16 +2,26 @@
 sidebar_position: 1
 slug: /
 ---
+# Welcome
 
-# Tutorial Intro
+:::danger
 
-Let's discover **Docusaurus in less than 5 minutes**.
+This is a work in progress. We are currently migrating to Docusaurus.
 
-## Getting Started
+:::
 
-Get started by **creating a new site**.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+Welcome to the WorldQL documentation. Let's discover **how WorldQL works in less than 5 minutes**.
+
+## What is WorldQL?
+
+WorldQL is a spatial database and message broker designed to help developers build multiplayer games faster. Our mission
+is to make building massively-multiplayer experiences as accessible as web development.
+
+Let's break down what "spatial database and message broker" means:
+- Spatial database: Like a normal SQL database but with indexes that make retrieving rows in a certain 3D area faster.
+[Here's a blog post describing how WorldQL configures a database](https://www.worldql.com/posts/2021-09-spatial-partitions-postgres/).
+- Spatial message broker: Think Redis pub/sub but instead of subscribing to a channel you subscribe to an area.
 
 ## Generate a new site
 
