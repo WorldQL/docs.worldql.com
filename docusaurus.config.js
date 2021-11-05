@@ -16,6 +16,7 @@ const config = {
     organizationName: 'WorldQL', // Usually your GitHub org/user name.
     projectName: 'docs.worldql.com', // Usually your repo name.
     deploymentBranch: "gh-pages",
+    trailingSlash: false,
 
     presets: [
         [
