@@ -23,24 +23,4 @@ Let's break down what "spatial database and message broker" means:
 [Here's a blog post describing how WorldQL configures a database](https://www.worldql.com/posts/2021-09-spatial-partitions-postgres/).
 - Spatial message broker: Think Redis pub/sub but instead of subscribing to a channel you subscribe to an area.
 
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**:
-
-```shell
-npm init docusaurus@latest my-website classic
-```
-
-## Start your site
-
-Run the development server:
-
-```shell
-cd my-website
-
-npx docusaurus start
-```
-
-Your site starts at `http://localhost:3000`.
-
-Open `docs/intro.md` and edit some lines: the site **reloads automatically** and display your changes.
+WorldQL communicates using a [Google Flatbuffer](https://google.github.io/flatbuffers/) schema, which allows for an efficient binary wire format and zero-copy reads from clients. It communicates over multiple protocols including ZeroMQ, WebSocket, and (coming soon) UDP.
