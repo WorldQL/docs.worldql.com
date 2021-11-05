@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'WorldQL Docs',
-    tagline: 'Dinosaurs are cool',
+    tagline: 'Real-time spatial database and message broker built for games',
     url: 'https://docs.worldql.com',
     baseUrl: '/',
     onBrokenLinks: 'throw',
