@@ -82,7 +82,7 @@ const config = {
                         ],
                     },
                 ],
-                copyright: `Copyright © ${new Date().getFullYear()} WorldQL Corp.`,
+                copyright: `Copyright © ${new Date().getFullYear()} WorldQL Corporation`,
             },
             prism: {
                 theme: lightCodeTheme,
