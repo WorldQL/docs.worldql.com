@@ -66,7 +66,7 @@ Deletes a Record. Uses the same lookup process as RecordUpdate.
 The response to RecordRead. A client-bound Message containing an array of Records.
 
 ## AreaSubscribe
-Subscribes to receive LocalMessages from a certain area. WorldQL splits the world into cubic areas based on the `WQL_REGION_CUBE_SIZE` configuration variable. For example, if `WQL_REGION_CUBE_SIZE=100` then the world is partitioned into 100^3 cubes that clients can subscribe and unsubscribe to. Requires a `position` specifying an area.
+Subscribes to receive LocalMessages from a certain area. WorldQL splits the world into cubic areas based on the `WQL_SUBSCRIPTION_REGION_CUBE_SIZE` configuration variable. For example, if `WQL_SUBSCRIPTION_REGION_CUBE_SIZE=100` then the world is partitioned into 100^3 cubes that clients can subscribe and unsubscribe to. Requires a `position` specifying an area.
 
 ## AreaUnsubscribe
 Unsubscribes from LocalMessages in a certain area.
