@@ -4,6 +4,9 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+/** @type {any} */
+const npm2yarn = require('@docusaurus/remark-plugin-npm2yarn');
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'WorldQL Docs',
@@ -28,6 +31,12 @@ const config = {
                     // Please change this to your repo.
                     editUrl: 'https://github.com/WorldQL/docs.worldql.com/tree/trunk',
                     routeBasePath: '/',
+                    remarkPlugins: [
+                        [npm2yarn, {sync: true}],
+                    ],
+                },
+                pages: {
+                    remarkPlugins: [npm2yarn],
                 },
                 blog: {
                     showReadingTime: true,
