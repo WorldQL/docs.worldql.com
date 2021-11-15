@@ -83,10 +83,83 @@ const client = new WorldQLClient({ url: 'ws://localhost:8080' })
 client.connect()
 ```
 
-<!-- TODO -->
-<!-- * send messages
-  * use json
-  * note about messagepack -->
+You will need to wait for the client to connect to WorldQL before attempting to send any data. Luckily the client will emit an event
+when it is connected and ready! It also has a read-only boolean property named `ready` that you can check at any time.
+
+:::caution Warning
+Attempting to send messages via the client before it is ready will result in the client throwing an Error.
+:::
+
+```ts
+// Subscribe to `ready` event
+client.on('ready', () => {
+  // ... handle ready ...
+})
+
+// Check ready property
+const isReady = client.ready
+```
+
+You could use this ready event to control the `disabled` state of the input textbox and send button to stop users from being able
+to interact with them before the client is ready.
+
+```ts
+// Disable inputs on page load
+input.disabled = true
+button.disabled = true
+
+// Enable inputs once client is ready
+client.on('ready', () => {
+  input.disabled = false
+  button.disabled = false
+})
+```
+
+Now that the client is connected and ready to send messages, you can use the `client` object to send a global message. You can use
+your IDE to inspect the arguments to `globalMessage()`, but for the sake of this example project we will go over them one by one.
+
+| Name | Type | Required | Usage |
+| - | - | - | - |
+| `worldName` | `string` | Yes | World to send message to |
+| `payload` | `object` | No | Optional extra payload, replicated to any listening clients |
+| `payload.parameter` | `string` | No | Arbitrary string value |
+| `payload.flex` | [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) | No | Arbitrary binary data |
+
+The `payload` object is used to send arbitrary data to other clients, usually application state of some form. The `parameter`
+payload is a simple string, which can be used to encode instructions or simple data. The `flex` payload is binary, meaning it
+can take any data as an input. This could be a complex packed binary representation of your application state, or it could simply
+be UTF8 encoded JSON; the choice is left entirely up to the user.
+
+```ts
+// On SEND clicked
+button.addEventListener('click', () => {
+  const text = input.value
+  input.value = ''
+  // ... code above is from before
+
+  // Ensure the client is ready, otherwise return early
+  if (!client.ready) return
+
+  // Send global message with the text as a payload
+  client.globalMessage('chat', { parameter: text })
+})
+```
+
+<!-- TODO: Subscribe to world -->
+
+Now that we are setup to send messages, we need to handle the other end and receive messages. The WorldQL client is an event emitter, so
+all you need to do is subscribe to the `globalMessage` event. It isn't important in this example since you are only subscribing to one
+world, but in the event you are subscribing to multiple worlds on the same client you will need to remember to filter based on world name.
+
+```ts
+// Subscribe to global messages
+client.on('globalMessage', (senderUuid, worldName, { parameter }) => {
+  // Filter out messages from other worlds
+  if (worldName !== 'chat') return
+
+  // ... handle incoming message ...
+})
+```
 
 ## Syncing Cursors
 :::danger Coming Soon
