@@ -111,6 +111,7 @@ your IDE to inspect the arguments to `globalMessage()`, but for the sake of this
 | Name | Type | Required | Usage |
 | - | - | - | - |
 | `worldName` | `string` | Yes | World to send message to |
+| `replication` | `enum` | No | Replication strategy |
 | `payload` | `object` | No | Optional extra payload, replicated to any listening clients |
 | `payload.parameter` | `string` | No | Arbitrary string value |
 | `payload.flex` | [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) | No | Arbitrary binary data |
@@ -121,6 +122,8 @@ can take any data as an input. This could be a complex packed binary representat
 be UTF8 encoded JSON; the choice is left entirely up to the user.
 
 ```ts
+import { Replication } from '@worldql/client'
+
 // On SEND clicked
 button.addEventListener('click', () => {
   const text = input.value
@@ -131,7 +134,8 @@ button.addEventListener('click', () => {
   if (!client.ready) return
 
   // Send global message with the text as a payload
-  client.globalMessage('chat', { parameter: text })
+  // Use replication strategy of ExceptSelf to send to all other clients
+  client.globalMessage('chat', Replication.ExceptSelf, { parameter: text })
 })
 ```
 
