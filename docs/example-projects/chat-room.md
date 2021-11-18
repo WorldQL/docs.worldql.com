@@ -4,7 +4,7 @@ sidebar_position: 1
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# WorldQL 101 - A chatroom and shared canvas over WebSockets in the browser
+# WorldQL 101 - A Chatroom and Shared Canvas over Websockets in the Browser
 
 Use WorldQL to build a simple chat room where you can see the cursors of other users.
 
@@ -12,20 +12,18 @@ Use WorldQL to build a simple chat room where you can see the cursors of other u
 We're hard at work building. Documentation on this example project is still a work in progress and subject to change!
 :::
 
+:::note
+Want more general examples? Check out the [TypeScript Client](../client-libraries/typescript.md) page for setup
+instructions and smaller example code snippets.
+:::
+
 ## Setup and Prerequisites
-WorldQL has a client written in TypeScript for use on the web, which can be found at https://npm.im/@worldql/client.
-You can either use JavaScript or TypeScript for this example, but TypeScript is recommended. You will also need a
-module bundler, such as [Webpack](https://webpack.js.org/) or [Parcel](https://parceljs.org/), to bundle your JS/TS
-code up with all dependencies for use on the web.
+Please refer to the [TypeScript Client Library](../client-libraries/typescript.md#installation-and-setup) page
+for information on how to setup the client.
 
-Once setup, simply install the client with your choice of package manager.
-```bash npm2yarn
-npm install @worldql/client
-```
-
-Finally, you will need a WorldQL server instance. For development accessing via `localhost` is fine. However on production websites
-you will need to expose the WorldQL WebSocket to the internet and ensure everything is setup correctly. This kind of production
-scale setup is out of the scope of this article however.
+To follow along, you will need a WorldQL server instance. For development, running locally and accessing via `localhost`
+is fine. However on production websites you will need to expose the WorldQL WebSocket to the internet and ensure everything
+is setup correctly. This kind of production scale setup is out of the scope of this article however.
 
 ## Syncing Chat
 A chatroom has two requirements, to send messages out to other clients, and to receive messages from other clients. WorldQL acts as
