@@ -40,24 +40,14 @@ To start, you will need some way for the user to interact with your application;
 Next you will need to add references in your JS/TS module. If you don't have a JS/TS entrypoint simply add a
 `<script type='module'></script>` tag.
 
-<Tabs>
-<TabItem value="js" label="JavaScript">
-
+```md codetabs
 ```js
 const input = document.getElementById('text-input')
 const button = document.getElementById('text-send')
-```
-
-</TabItem>
-<TabItem value="ts" label="TypeScript">
-
 ```ts
 const input = document.getElementById<HTMLInputElement>('text-input')
 const button = document.getElementById<HTMLButtonElement>('text-send')
 ```
-
-</TabItem>
-</Tabs>
 
 From there you will need to add an event listener to the button to detect clicks. This will then read and clear the text in the input
 textbox, and pass the text through WorldQL to other clients.

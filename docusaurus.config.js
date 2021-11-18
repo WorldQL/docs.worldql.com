@@ -6,6 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {any} */
 const npm2yarn = require('@docusaurus/remark-plugin-npm2yarn');
+const codetabs = require('docusaurus-remark-plugin-codetabs');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -33,10 +34,14 @@ const config = {
                     routeBasePath: '/',
                     remarkPlugins: [
                         [npm2yarn, {sync: true}],
+                        [codetabs, {sync: true}],
                     ],
                 },
                 pages: {
-                    remarkPlugins: [npm2yarn],
+                    remarkPlugins: [
+                        [npm2yarn, {sync: true}],
+                        [codetabs, {sync: true}],
+                    ],
                 },
                 blog: {
                     showReadingTime: true,
