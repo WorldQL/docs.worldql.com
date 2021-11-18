@@ -66,6 +66,30 @@ client.on('peerDisconnect', uuid => {
 })
 ```
 
+### Calculate ping to WorldQL server
+```ts
+import { Client, Replication } from '@worldql/client'
+const client = new Client({ ... })
+
+// Listen for ping response
+client.on('globalMessage', (uuid, _, { parameter }) => {
+  if (uuid !== client.uuid) return
+
+  const after = Date.now()
+  const before = new Date().setTime(Number.parseInt(parameter, 10))
+
+  const delta = after - before
+  console.log(`ping is ${delta}ms`)
+})
+
+client.on('ready', () => {
+  // Send message with current time
+  client.globalMessage('@global', Replication.OnlySelf, {
+    parameter: Date.now().toString(),
+  })
+})
+```
+
 ---
 
 :::note Further Reading
