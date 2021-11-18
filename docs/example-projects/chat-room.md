@@ -39,12 +39,14 @@ Next you will need to add references in your JS/TS module. If you don't have a J
 `<script type='module'></script>` tag.
 
 ```md codetabs
-```js
-const input = document.getElementById('text-input')
-const button = document.getElementById('text-send')
 ```ts
-const input = document.getElementById<HTMLInputElement>('text-input')
-const button = document.getElementById<HTMLButtonElement>('text-send')
+const input = document.getElementById('text-input') as HTMLInputElement
+const button = document.getElementById('text-send') as HTMLButtonElement
+```js
+/** @type {HTMLInputElement} */
+const input = document.getElementById('text-input')
+/** @type {HTMLButtonElement} */
+const button = document.getElementById('text-send')
 ```
 
 From there you will need to add an event listener to the button to detect clicks. This will then read and clear the text in the input
@@ -133,11 +135,10 @@ button.addEventListener('click', () => {
 })
 ```
 
-<!-- TODO: Subscribe to world -->
-
 Now that we are setup to send messages, we need to handle the other end and receive messages. The WorldQL client is an event emitter, so
-all you need to do is subscribe to the `globalMessage` event. It isn't important in this example since you are only subscribing to one
-world, but in the event you are subscribing to multiple worlds on the same client you will need to remember to filter based on world name.
+all you need to do is subscribe to the `globalMessage` event. If you are sending/receiving to/from multiple worlds then you will need
+to remember to filter based on the incoming `worldName` parameter, but for this example we are only using the one world so this isn't
+strictly necessary.
 
 ```ts
 // Subscribe to global messages
@@ -148,6 +149,91 @@ client.on('globalMessage', (senderUuid, worldName, { parameter }) => {
   // ... handle incoming message ...
 })
 ```
+
+However, this won't work just yet. WorldQL only passes messages to clients which have subscribed to a world, or areas inside a world in
+the case of local messages. To receive global messages, you must subscribe to at least one region in a world.
+
+```ts
+// Subscribe to origin region
+client.areaSubscribe('world', { x: 0, y: 0, z: 0 })
+```
+
+Once we are subscribed to the world, we will need to actually process the incoming messages. For this example, we will store the message
+content and sender UUID in an array of tuples and then printing the array to the console. We won't go over displaying the messages in the
+DOM, as that has been left as an extension task for you to complete yourself.
+
+```md codetabs
+```ts
+// Define an array to store messages
+const messages: Array<[uuid: string, text: string]> = []
+
+button.addEventListener('click', () => {
+  const text = input.value
+  input.value = ''
+  
+  if (!client.ready) return
+  client.globalMessage('chat', { parameter: text })
+  // ... code above is from before
+
+  // Store own message in array
+  messages.push([client.uuid, text])
+
+  // Print outgoing message to console
+  console.log(`> ${senderUuid}: ${parameter}`)
+})
+
+client.on('globalMessage', (senderUuid, worldName, { parameter }) => {
+  if (worldName !== 'chat') return
+  // ... code above is from before
+
+  // Store message in array
+  messages.push([senderUuid, parameter])
+
+  // Print incoming message to console
+  console.log(`< ${senderUuid}: ${parameter}`)
+})
+```js
+// Define an array to store messages
+/** @type {Array<[uuid: string, text: string]>} */
+const messages = []
+
+button.addEventListener('click', () => {
+  const text = input.value
+  input.value = ''
+  
+  if (!client.ready) return
+  client.globalMessage('chat', { parameter: text })
+  // ... code above is from before
+
+  // Store own message in array
+  messages.push([client.uuid, text])
+
+  // Print outgoing message to console
+  console.log(`> ${senderUuid}: ${parameter}`)
+})
+
+client.on('globalMessage', (senderUuid, worldName, { parameter }) => {
+  if (worldName !== 'chat') return
+  // ... code above is from before
+
+  // Store message in array
+  messages.push([senderUuid, parameter])
+
+  // Print incoming message to console
+  console.log(`< ${senderUuid}: ${parameter}`)
+})
+```
+
+At this point you should have a fully functioning chat example. It isn't pretty and the only way to see chat messages is by opening the
+JavaScript console, but it does work as expected. If you are feeling ambitious, take a look at the extension tasks below. These are
+pointers on how you can extend this example project to a more functional real-world application.
+
+### Extension Tasks
+* Make UI for the user to set their own username
+* Pass both the username and message text to WorldQL
+* Display the username and text in the HTML DOM
+* Use the `peerConnect` and `peerDisconnect` events to display every connected client
+* Use the `peerConnect` and `peerDisconnect` events to display messages when a client joins/leaves the chatroom
 
 ## Syncing Cursors
 :::danger Coming Soon
