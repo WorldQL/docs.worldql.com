@@ -6,7 +6,7 @@ import TabItem from '@theme/TabItem';
 
 # WorldQL 101 - A Chatroom and Shared Canvas over Websockets in the Browser
 
-Use WorldQL to build a simple chat room where you can see the cursors of other users.
+Use WorldQL to build a simple chat room where you can see the cursors of other users. Source code for this project can be found at https://github.com/WorldQL/web-examples
 
 :::danger Work in progress!
 We're hard at work building. Documentation on this example project is still a work in progress and subject to change!
