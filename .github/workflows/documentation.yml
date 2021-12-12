@@ -43,6 +43,7 @@ jobs:
         run: |
           git config --global user.email "jacksonroberts25@gmail.com"
           git config --global user.name "Jaxkr"
+          yarn set version 3.1.1
           if [ -e yarn.lock ]; then
             yarn install --frozen-lockfile
           elif [ -e package-lock.json ]; then
