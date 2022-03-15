@@ -8,7 +8,7 @@ Scripts allow you to program dynamic behavior inside WorldQL. This environment i
 
 :::caution Coming soon!
 
-Scripts are not yet implemented in WorldQL. They will be released alongside Entities early next year.
+Scripts in WorldQL are coming soon! They will be released publicly alongside Entities in Q2 2022. If you're interested in getting access early, please email us at hello@worldql.com
 
 :::
 

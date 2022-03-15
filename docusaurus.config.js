@@ -16,7 +16,7 @@ const config = {
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
-    favicon: 'img/favicon.ico',
+    favicon: 'img/favicon.png',
     organizationName: 'WorldQL', // Usually your GitHub org/user name.
     projectName: 'docs.worldql.com', // Usually your repo name.
     deploymentBranch: "gh-pages",
@@ -63,7 +63,7 @@ const config = {
                 title: 'WorldQL Docs',
                 logo: {
                     alt: 'My Site Logo',
-                    src: 'img/logo.svg',
+                    src: 'img/logo.png',
                 },
                 items: [],
             },
